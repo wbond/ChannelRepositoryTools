@@ -8,18 +8,18 @@ includes:
  - Testing a remote repository JSON URL
  - Upgrading a local repository JSON file
 
- ## Installation
+## Installation
 
- Installation is performed via Package Control.
+Installation is performed via Package Control.
 
- ## Usage
+## Usage
 
- This package was designed to work with the default Package Control channel.
- Before using this package, it is necessary to:
+This package was designed to work with the default Package Control channel.
+Before using this package, it is necessary to:
 
-  1. Fork https://github.com/wbond/package_control_channel
-  2. Clone your fork of package_control_channel using Git
-  3. Open package_control_channel in Sublime Text
+ 1. Fork https://github.com/wbond/package_control_channel
+ 2. Clone your fork of package_control_channel using Git
+ 3. Open package_control_channel in Sublime Text
 
 ### Testing the Default Channel
 
