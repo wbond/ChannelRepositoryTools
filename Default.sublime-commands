@@ -1,0 +1,25 @@
+[
+    {
+        "caption": "ChannelRepositoryTools: Test Default Channel",
+        "command": "test_default_channel"
+    },
+    {
+        "caption": "ChannelRepositoryTools: Test Default Channel (including Remote Repositories)",
+        "command": "test_default_channel",
+        "args": {
+            "include_repositories": true
+        }
+    },
+    {
+        "caption": "ChannelRepositoryTools: Test Remote Repository",
+        "command": "test_remote_repository"
+    },
+    {
+        "caption": "ChannelRepositoryTools: Test Local Repository (Current File)",
+        "command": "test_local_repository"
+    },
+    {
+        "caption": "ChannelRepositoryTools: Upgrade Repository Schema (Current File)",
+        "command": "upgrade_repository_schema"
+    }
+]
