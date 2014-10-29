@@ -1,13 +1,16 @@
+# -*- coding: utf-8 -*-
+
 import re
 import json
 import sys
-from collections import OrderedDict
 from operator import itemgetter
 
 if sys.version_info >= (3,):
     from urllib.request import urlopen
+    from collections import OrderedDict
 else:
     from urllib2 import urlopen
+    from ordereddict import OrderedDict
 
 import sublime
 import sublime_plugin

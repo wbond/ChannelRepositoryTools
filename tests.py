@@ -111,6 +111,8 @@ def create_resources(window):
         output_queue.write("\x04")
         os.chdir(old_path)
 
+    parent_module_info = imp.find_module('tests', ["."])
+    imp.load_module('package_control_channel.tests', *parent_module_info)
     module_info = imp.find_module('test', ["./tests"])
     tests = imp.load_module('package_control_channel.tests.test', *module_info)
 
@@ -160,7 +162,8 @@ def run_local_tests(tests, path, output_queue, on_done):
         @classmethod
         def generate_repository_tests(cls, stream):
             cls._write(stream, 'Loading ')
-            yield from cls._include_tests(path, stream)
+            for test in cls._include_tests(path, stream):
+                yield test
             cls._write(stream, '\n')
 
     tests.generate_test_methods(RepositoryTests, output_queue)
@@ -191,7 +194,8 @@ def run_url_tests(tests, url, output_queue, on_done):
         @classmethod
         def generate_repository_tests(cls, stream):
             cls._write(stream, 'Downloading ')
-            yield from cls._include_tests(url, stream)
+            for test in cls._include_tests(url, stream):
+                yield test
             cls._write(stream, '\n')
 
     tests.generate_test_methods(RepositoryTests, output_queue)
