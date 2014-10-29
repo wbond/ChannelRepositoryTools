@@ -1,24 +1,32 @@
+# -*- coding: utf-8 -*-
+
 import unittest
 import imp
 import os
 import sys
 import threading
-
-try:
-    from StringIO import StringIO
-    import Queue as queue
-except (ImportError):
-    from io import StringIO
-    import queue
+import time
 
 import sublime
 import sublime_plugin
 
 
+class StringQueue():
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.queue = ''
 
-class StringQueue(queue.Queue):
     def write(self, data):
-        self.put(data)
+        self.lock.acquire()
+        self.queue += data
+        self.lock.release()
+
+    def get(self):
+        self.lock.acquire()
+        output = self.queue
+        self.queue = ''
+        self.lock.release()
+        return output
 
     def flush(self):
         pass
@@ -253,10 +261,15 @@ def display_results(headline, panel, string_queue):
     write_to_panel(u'Running %s Tests\n\n  ' % headline)
 
     while True:
-        try:
-            chars = string_queue.get(True, 0.1)
-            if chars == "\x04":
-                break
-            write_to_panel(chars.replace('\n', '\n  '))
-        except (queue.Empty):
-            pass
+        chars = string_queue.get().replace('\n', '\n  ')
+
+        if chars == '':
+            time.sleep(0.1)
+            continue
+
+        if chars[-1] == "\x04":
+            chars = chars[0:-1]
+            write_to_panel(chars)
+            break
+
+        write_to_panel(chars)
